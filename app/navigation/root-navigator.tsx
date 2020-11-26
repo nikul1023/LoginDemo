@@ -4,11 +4,14 @@
  * and a "main" flow (which is contained in your PrimaryNavigator) which the user
  * will use once logged in.
  */
-import React from "react"
+import React,{useContext,useEffect,useState} from "react"
 import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native"
-
+import auth from '@react-native-firebase/auth';
+import { useStores } from "../models"
+//import {AuthContext} from '../components/context/context';
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
-import { PrimaryNavigator } from "./primary-navigator"
+import { PrimaryNavigator,SecondNavigator } from "./primary-navigator"
+import { observer } from "mobx-react-lite";
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -22,11 +25,13 @@ import { PrimaryNavigator } from "./primary-navigator"
  */
 export type RootParamList = {
   primaryStack: undefined
+
 }
 
 const Stack = createNativeStackNavigator<RootParamList>()
 
-const RootStack = () => {
+const RootStack = observer(() => {
+ 
   return (
     <Stack.Navigator
       screenOptions={{
@@ -45,15 +50,34 @@ const RootStack = () => {
       />
     </Stack.Navigator>
   )
-}
+})
 
 export const RootNavigator = React.forwardRef<
   NavigationContainerRef,
   Partial<React.ComponentProps<typeof NavigationContainer>>
 >((props, ref) => {
+  const {userStore} = useStores()
+  // const {user, setUser} = useContext(AuthContext);
+  // const [initializing, setInitializing] = useState(true);
+
+  // const onAuthStateChanged = (user) => {
+  //   setUser(user);
+  //   if (initializing) setInitializing(false);
+  // };
+
+  // useEffect(() => {
+  //   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  //   return subscriber; // unsubscribe on unmount
+  // }, []);
+
+  // if (initializing) return null;
   return (
     <NavigationContainer {...props} ref={ref}>
+      
       <RootStack />
+    
+  
+
     </NavigationContainer>
   )
 })

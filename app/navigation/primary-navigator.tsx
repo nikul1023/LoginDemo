@@ -4,10 +4,11 @@
  *
  * You'll likely spend most of your time in this file.
  */
-import React from "react"
-
+import React,{useContext,useEffect,useState} from "react"
+import { useStores } from "../models"
 import { createNativeStackNavigator } from "react-native-screens/native-stack"
-import { WelcomeScreen, DemoScreen } from "../screens"
+import { WelcomeScreen, DemoScreen, LoginScreen, HomeScreen, ContextScreen } from "../screens"
+//import AsyncStorage from '@react-native-async-storage/async-storage'
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -22,24 +23,62 @@ import { WelcomeScreen, DemoScreen } from "../screens"
  *   https://reactnavigation.org/docs/typescript#type-checking-the-navigator
  */
 export type PrimaryParamList = {
-  welcome: undefined
-  demo: undefined
+  
+  context : undefined
 }
 
 // Documentation: https://github.com/software-mansion/react-native-screens/tree/master/native-stack
 const Stack = createNativeStackNavigator<PrimaryParamList>()
 
-export function PrimaryNavigator() {
+export  function PrimaryNavigator() {
+    
+  // const name =   AsyncStorage.getItem('name');
+    
+  
+  
+  //const {userStore} = useStores()
   return (
     <Stack.Navigator
+    //initialRouteName="login"
       screenOptions={{
         headerShown: false,
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen name="welcome" component={WelcomeScreen} />
-      <Stack.Screen name="demo" component={DemoScreen} />
+     
+        <Stack.Screen name="context" component={ContextScreen} />
+   
+       
+      
+     
+
     </Stack.Navigator>
+  )
+}
+export type PrimaryStackList = {
+  home : undefined
+  
+}
+
+// Documentation: https://github.com/software-mansion/react-native-screens/tree/master/native-stack
+const secondStack = createNativeStackNavigator<PrimaryStackList>()
+
+export function SecondNavigator() {
+  
+  return (
+    <secondStack.Navigator
+    //initialRouteName="login"
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+      }}
+    >
+       
+       
+        
+      <secondStack.Screen name="home" component={HomeScreen} />
+       
+    </secondStack.Navigator>
   )
 }
 
@@ -52,5 +91,5 @@ export function PrimaryNavigator() {
  *
  * `canExit` is used in ./app/app.tsx in the `useBackButtonHandler` hook.
  */
-const exitRoutes = ["welcome"]
+const exitRoutes = ["login"]
 export const canExit = (routeName: string) => exitRoutes.includes(routeName)
