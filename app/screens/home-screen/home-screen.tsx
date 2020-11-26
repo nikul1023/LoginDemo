@@ -1,6 +1,6 @@
 import React,{useEffect} from "react"
 import { observer } from "mobx-react-lite"
-import { ViewStyle ,TouchableOpacity,Button } from "react-native"
+import { ViewStyle ,TouchableOpacity,Button ,View} from "react-native"
 import { Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
  import { useStores } from "../../models"
@@ -35,13 +35,13 @@ async function onPress(){
   // Pull in navigation via hook
   // const navigation = useNavigation()
   return (
-    <Screen style={ROOT} preset="scroll">
+    <View style={ROOT} >
       <Text>Logged in using  {userStore.isGoogle ? 'Google' :  'Facebook'}</Text>
       <Text>You are logged in as {userStore.name}</Text>
       <Text>Email : {userStore.email}</Text>
       <TouchableOpacity style={BUTTON} onPress={() => onPress()} >
           <Text style ={{color : color.palette.black}} >Logout</Text>
       </TouchableOpacity>
-    </Screen>
+    </View>
   )
 })
