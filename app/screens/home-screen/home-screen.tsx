@@ -1,10 +1,11 @@
-import React,{useEffect} from "react"
+import React,{useEffect,useContext} from "react"
 import { observer } from "mobx-react-lite"
 import { ViewStyle ,TouchableOpacity,Button ,View} from "react-native"
 import { Screen, Text } from "../../components"
 import { useNavigation } from "@react-navigation/native"
  import { useStores } from "../../models"
 import { color } from "../../theme"
+
 //import AsyncStorage from '@react-native-async-storage/async-storage'
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.black,
@@ -20,6 +21,7 @@ const BUTTON: ViewStyle = {
   alignItems:"center",
   marginTop :20,
 }
+
 
 export const HomeScreen = observer(function HomeScreen() {
   // Pull in one of our MST stores
@@ -42,6 +44,7 @@ async function onPress(){
       <TouchableOpacity style={BUTTON} onPress={() => onPress()} >
           <Text style ={{color : color.palette.black}} >Logout</Text>
       </TouchableOpacity>
+     
     </View>
   )
 })
