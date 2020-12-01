@@ -12,6 +12,7 @@ import { CalendarScreen } from "../calendar-screen/calendar-screen"
 import { NavigationContainer, NavigationContainerRef } from "@react-navigation/native"
 import { MapScreen } from "../map-screen/map-screen"
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import Icon from 'react-native-vector-icons/Ionicons';
 const ROOT: ViewStyle = {
   backgroundColor: color.palette.black,
   flex: 1,
@@ -52,13 +53,27 @@ export const ContextScreen = observer(function ContextScreen() {
       screenOptions={{
         headerShown: true,
         gestureEnabled: true,
-        
+
       }}
     >
      
-     <Tab.Screen name="home" component={HomeScreen} options={{headerShown : false}}/>
-      <Tab.Screen name="calendar" component={CalendarScreen} />
-      <Tab.Screen name="map" component={MapScreen} />
+     <Tab.Screen name="home" component={HomeScreen} options={{headerShown : false
+      ,tabBarLabel: 'Home',
+      tabBarIcon: ({ color }) => (
+        <Icon name="ios-home" color={color} size={26} />
+      ),
+    }}/>
+      <Tab.Screen name="calendar" component={CalendarScreen} options={{tabBarLabel: 'Calendar',
+      tabBarIcon: ({ color }) => (
+        <Icon name="ios-calendar" color={color} size={26} />
+      ),}} />
+      <Tab.Screen name="map" component={MapScreen} 
+      options={{
+        tabBarLabel: 'Map',
+      tabBarIcon: ({ color }) => (
+        <Icon name="pin" color={color} size={26} />
+      ),
+      }}/>
       
     </Tab.Navigator>
     )
